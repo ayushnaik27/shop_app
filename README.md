@@ -1,6 +1,7 @@
 # shop_app
 
 A new Flutter project.
+In this project i aim to learn State Manegement in Flutter by building an application for general shopping purpose.
 
 ## Getting Started
 

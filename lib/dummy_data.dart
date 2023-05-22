@@ -68,7 +68,7 @@ List<Item> items = [
     title: "Pen",
     price: 1.99,
     description: "Blue ballpoint pen",
-    imageUrl: "https://example.com/pen.jpg",
+    imageUrl: "https://www.bigbasket.com/media/uploads/p/l/40290249_1-uni-ball-click-gel-pen-blue-ink.jpg",
     quantity: 100,
   ),
   Item(
@@ -76,7 +76,7 @@ List<Item> items = [
     title: "Pencil",
     price: 0.99,
     description: "Wooden graphite pencil",
-    imageUrl: "https://example.com/pencil.jpg",
+    imageUrl: "https://4.imimg.com/data4/PL/IY/MY-23695144/natraj-pencil-500x500.jpg",
     quantity: 80,
   ),
   Item(
@@ -84,7 +84,7 @@ List<Item> items = [
     title: "Scale",
     price: 2.99,
     description: "Plastic ruler",
-    imageUrl: "https://example.com/scale.jpg",
+    imageUrl: "https://www.elecmatics.com/wp-content/uploads/2017/12/plastic-ruler-1.jpg",
     quantity: 50,
   ),
   Item(
@@ -92,7 +92,7 @@ List<Item> items = [
     title: "Toothpaste",
     price: 4.99,
     description: "Mint-flavored toothpaste",
-    imageUrl: "https://example.com/toothpaste.jpg",
+    imageUrl: "https://m.media-amazon.com/images/I/61nctAojOEL._SX679_.jpg",
     quantity: 30,
   ),
   Item(
@@ -100,7 +100,7 @@ List<Item> items = [
     title: "Brush",
     price: 3.99,
     description: "Soft-bristle toothbrush",
-    imageUrl: "https://example.com/brush.jpg",
+    imageUrl: "https://www.bigbasket.com/media/uploads/p/l/40000369_8-colgate-zigzag-medium-bristle-toothbrush.jpg",
     quantity: 40,
   ),
   Item(
@@ -108,7 +108,7 @@ List<Item> items = [
     title: "Bodywash",
     price: 7.99,
     description: "Refreshing body wash",
-    imageUrl: "https://example.com/bodywash.jpg",
+    imageUrl: "https://m.media-amazon.com/images/I/419w4PBH11L._SL1000_.jpg",
     quantity: 25,
   ),
   Item(
@@ -116,7 +116,7 @@ List<Item> items = [
     title: "Facewash",
     price: 6.99,
     description: "Gentle facial cleanser",
-    imageUrl: "https://example.com/facewash.jpg",
+    imageUrl: "https://m.media-amazon.com/images/I/51S1xnq72ML._SL1000_.jpg",
     quantity: 30,
   ),
   Item(
@@ -124,7 +124,7 @@ List<Item> items = [
     title: "Loofah",
     price: 2.99,
     description: "Exfoliating bath sponge",
-    imageUrl: "https://example.com/loofah.jpg",
+    imageUrl: "https://5.imimg.com/data5/WA/TU/MY-18958697/loofah-sponge-500x500.jpg",
     quantity: 50,
   ),
   Item(
@@ -132,7 +132,7 @@ List<Item> items = [
     title: "Shampoo",
     price: 9.99,
     description: "Nourishing hair shampoo",
-    imageUrl: "https://example.com/shampoo.jpg",
+    imageUrl: "https://m.media-amazon.com/images/I/61ZrPaeTcfL._SL1500_.jpg",
     quantity: 30,
   ),
   Item(
@@ -140,7 +140,7 @@ List<Item> items = [
     title: "Conditioner",
     price: 9.99,
     description: "Hydrating hair conditioner",
-    imageUrl: "https://example.com/conditioner.jpg",
+    imageUrl: "https://m.media-amazon.com/images/I/41Gi2qS7zYL._SY355_.jpg",
     quantity: 30,
   ),
   Item(
@@ -148,7 +148,7 @@ List<Item> items = [
     title: "Hair pins",
     price: 1.99,
     description: "Set of hair pins",
-    imageUrl: "https://example.com/hair_pins.jpg",
+    imageUrl: "https://m.media-amazon.com/images/I/418+Gqn2BeL.jpg",
     quantity: 50,
   ),
   Item(
@@ -156,7 +156,7 @@ List<Item> items = [
     title: "Tops",
     price: 19.99,
     description: "Women's casual top",
-    imageUrl: "https://example.com/tops.jpg",
+    imageUrl: "https://5.imimg.com/data5/SELLER/Default/2022/1/US/AN/IE/2985467/tops-500x500.jpg",
     quantity: 15,
   ),
   Item(
@@ -164,7 +164,7 @@ List<Item> items = [
     title: "Pyjamas",
     price: 15.99,
     description: "Comfortable sleepwear",
-    imageUrl: "https://example.com/pyjamas.jpg",
+    imageUrl: "https://assets.ajio.com/medias/sys_master/root/20221117/3mjP/6375d7a1f997ddfdbd7fc9fe/-473Wx593H-441205437-blue-MODEL.jpg",
     quantity: 20,
   ),
   Item(
@@ -172,7 +172,7 @@ List<Item> items = [
     title: "Kurti",
     price: 24.99,
     description: "Traditional Indian women's attire",
-    imageUrl: "https://example.com/kurti.jpg",
+    imageUrl: "https://www.arihantfashion.com/wp-content/uploads/2022/03/designer-anarkali-kurti-with-pant-6.jpg",
     quantity: 10,
   ),
   Item(
@@ -180,7 +180,7 @@ List<Item> items = [
     title: "Plazo",
     price: 18.99,
     description: "Wide-legged trousers",
-    imageUrl: "https://example.com/plazo.jpg",
+    imageUrl: "https://5.imimg.com/data5/PQ/DN/MU/SELLER-24927440/bottom-print-plazo-1000x1000.jpg",
     quantity: 15,
   ),
   Item(
@@ -188,7 +188,7 @@ List<Item> items = [
     title: "Bournvita",
     price: 11.99,
     description: "Health drink mix",
-    imageUrl: "https://example.com/bournvita.jpg",
+    imageUrl: "https://m.media-amazon.com/images/I/6113jMzM0CL._SL1500_.jpg",
     quantity: 40,
   ),
   Item(
@@ -196,7 +196,7 @@ List<Item> items = [
     title: "Nutella",
     price: 8.99,
     description: "Hazelnut spread",
-    imageUrl: "https://example.com/nutella.jpg",
+    imageUrl: "https://m.media-amazon.com/images/I/71WDhp2+GUL._SL1500_.jpg",
     quantity: 30,
   ),
   Item(
@@ -204,7 +204,7 @@ List<Item> items = [
     title: "Jam",
     price: 5.99,
     description: "Fruit jam",
-    imageUrl: "https://example.com/jam.jpg",
+    imageUrl: "https://m.media-amazon.com/images/I/51NJJNAATTL._SX522_.jpg",
     quantity: 35,
   ),
   Item(
@@ -212,7 +212,7 @@ List<Item> items = [
     title: "Bread",
     price: 3.99,
     description: "White bread loaf",
-    imageUrl: "https://example.com/bread.jpg",
+    imageUrl: "https://c8.alamy.com/comp/BH1650/studio-cut-out-on-white-isolate-loaf-of-hovis-sliced-white-bread-in-BH1650.jpg",
     quantity: 40,
   ),
   Item(
@@ -220,7 +220,7 @@ List<Item> items = [
     title: "Bag",
     price: 29.99,
     description: "Stylish backpack",
-    imageUrl: "https://example.com/bag.jpg",
+    imageUrl: "https://m.media-amazon.com/images/I/61iR9NMcKpL._UX569_.jpg",
     quantity: 10,
   ),
   Item(
@@ -228,7 +228,7 @@ List<Item> items = [
     title: "Shoes",
     price: 39.99,
     description: "Running shoes",
-    imageUrl: "https://example.com/shoes.jpg",
+    imageUrl: "https://m.media-amazon.com/images/I/51uVlUdW3BL._AC._SR360,460.jpg",
     quantity: 8,
   ),
   Item(
@@ -236,7 +236,7 @@ List<Item> items = [
     title: "Chappal",
     price: 14.99,
     description: "Casual sandals",
-    imageUrl: "https://example.com/chappal.jpg",
+    imageUrl: "https://admin.walkwayshoes.com/product/57-4956/1080/57-4956M24.jpg",
     quantity: 12,
   ),
   Item(
@@ -244,7 +244,7 @@ List<Item> items = [
     title: "Perfume",
     price: 29.99,
     description: "Fragrance for men",
-    imageUrl: "https://example.com/perfume.jpg",
+    imageUrl: "https://m.media-amazon.com/images/I/71CJ6MrX-+L._SL1500_.jpg",
     quantity: 20,
   ),
 ];

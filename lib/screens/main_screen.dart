@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/screens/settings_screen.dart';
 
 import '../dummy_data.dart';
 import '../widgets/product_item.dart';
@@ -17,8 +18,8 @@ class MyHomePage extends StatelessWidget {
             color: Colors.pink.shade400,
           ),
           SizedBox(height: 30),
-          drawer_item(Icons.production_quantity_limits_outlined, 'All Items'),
-          drawer_item(Icons.settings_accessibility_rounded, 'Settings'),
+          drawer_item(Icons.production_quantity_limits_outlined, 'All Items',context),
+          drawer_item(Icons.settings_accessibility_rounded, 'Settings',context),
         ],
       )),
       appBar: AppBar(
@@ -43,9 +44,14 @@ class MyHomePage extends StatelessWidget {
     );
   }
 
-  Widget drawer_item(final IconData icon, final String title) {
+  Widget drawer_item(final IconData icon, final String title, final BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx ) {
+           if(title == 'All Items') return MyHomePage();
+           else return SettingsPage();
+        } ));
+      },
       child: Container(
         margin: EdgeInsets.all(20),
         child: Row(

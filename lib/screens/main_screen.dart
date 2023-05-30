@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/screens/settings_screen.dart';
 
-import '../dummy_data.dart';
-import '../widgets/product_item.dart';
+
+import '../widgets/product_grid.dart';
+
 
 class MyHomePage extends StatelessWidget {
   @override
@@ -26,21 +27,7 @@ class MyHomePage extends StatelessWidget {
         title: Text('Shop Ki List'),
         backgroundColor: Colors.pink,
       ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(10),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 3 / 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10),
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-          return ProductItem(
-            title: items[index].title,
-            imageUrl: items[index].imageUrl,
-          );
-        },
-      ),
+      body: ProductGrid(),
     );
   }
 
@@ -67,5 +54,7 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
+
+
 
 

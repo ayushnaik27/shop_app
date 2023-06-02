@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 
-class Item extends ChangeNotifier {
+class Item with ChangeNotifier {
   
   final String id;
   final String title;
@@ -21,8 +21,10 @@ class Item extends ChangeNotifier {
     required this.description,
     required this.imageUrl,
     required this.quantity,
-    required this.isFavourite,
+    this.isFavourite = false,
   });
+
+  
 
   void favouriteToggle(){
     isFavourite=!isFavourite;

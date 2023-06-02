@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/screens/settings_screen.dart';
 
-
 import '../widgets/product_grid.dart';
 
+enum FilterOptions {
+  favourites,
+  all,
+}
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  bool showFavourites = false;
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       drawer: Drawer(
           child: Column(
@@ -18,33 +27,61 @@ class MyHomePage extends StatelessWidget {
             width: double.infinity,
             color: Colors.pink.shade400,
           ),
-          SizedBox(height: 30),
-          drawer_item(Icons.production_quantity_limits_outlined, 'All Items',context),
-          drawer_item(Icons.settings_accessibility_rounded, 'Settings',context),
+          const SizedBox(height: 30),
+          drawer_item(
+              Icons.production_quantity_limits_outlined, 'All Items', context),
+          drawer_item(
+              Icons.settings_accessibility_rounded, 'Settings', context),
         ],
       )),
       appBar: AppBar(
         title: Text('Shop Ki List'),
         backgroundColor: Colors.pink,
+        actions: [
+          PopupMenuButton(
+            itemBuilder: (_) => [
+              PopupMenuItem(
+                child: Text('Only Favourites'),
+                value: FilterOptions.favourites,
+              ),
+              PopupMenuItem(
+                child: Text('All Items'),
+                value: FilterOptions.all,
+              )
+            ],
+            onSelected: (value) {
+              setState(() {
+                if (value == FilterOptions.all) {
+                  showFavourites = false;
+                } else {
+                  showFavourites = true;
+                }
+              });
+            },
+          )
+        ],
       ),
-      body: ProductGrid(),
+      body: ProductGrid(showFavourites),
     );
   }
 
-  Widget drawer_item(final IconData icon, final String title, final BuildContext context) {
+  Widget drawer_item(
+      final IconData icon, final String title, final BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx ) {
-           if(title == 'All Items') return MyHomePage();
-           else return SettingsPage();
-        } ));
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) {
+          if (title == 'All Items')
+            return MyHomePage();
+          else
+            return SettingsPage();
+        }));
       },
       child: Container(
         margin: EdgeInsets.all(20),
         child: Row(
           children: [
             Icon(icon),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Text(title),
@@ -54,7 +91,3 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
-
-
-
-

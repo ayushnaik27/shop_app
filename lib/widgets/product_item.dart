@@ -11,8 +11,10 @@ class ProductItem extends StatelessWidget {
     // ProductItem({required this.item});
   @override
   Widget build(BuildContext context) {
-    final item = Provider.of<Item>(context);
-
+    final item = Provider.of<Item>(
+      context,
+      listen: false,
+    );
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
@@ -27,12 +29,15 @@ class ProductItem extends StatelessWidget {
         ),
         footer: GridTileBar(
           backgroundColor: Colors.black87,
-          leading: IconButton(
-            icon:
-                Icon(item.isFavourite ? Icons.favorite : Icons.favorite_border),
+          leading: Consumer<Item>(
+            builder: (context, value, child) => IconButton(
+              icon: Icon(
+                  item.isFavourite ? Icons.favorite : Icons.favorite_border),
             onPressed: () {
               item.favouriteToggle();
             },
+          ),
+            // child: Text('Never changes')// Ye aisa child hai consiumer ka jisko hame channge nahi krna hai
           ),
           title: Text(
             item.title,

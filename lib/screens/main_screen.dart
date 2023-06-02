@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/screens/settings_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/providers/cart_provider.dart';
 
+import '../screens/settings_screen.dart';
 import '../widgets/product_grid.dart';
+import '../widgets/badge.dart';
 
 enum FilterOptions {
   favourites,
@@ -58,7 +61,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 }
               });
             },
-          )
+          ),
+          Consumer<Cart>(
+            builder: (context, cart, ch) => BadgeCircle(
+              color: Colors.orange,
+              value: cart.itemCount.toString(),
+              child: ch as Widget,
+            ),
+            child:
+                IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart)),
+          ),
         ],
       ),
       body: ProductGrid(showFavourites),

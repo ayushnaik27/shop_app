@@ -48,6 +48,7 @@ class CartPage extends StatelessWidget {
             child: ListView.builder(
           itemBuilder: (ctx, i) => ci.CartItem(
               id: cart.items.values.toList()[i].id,
+              prodId: cart.items.keys.toList()[i],
               price: cart.items.values.toList()[i].price,
               quantity: cart.items.values.toList()[i].quantity,
               title: cart.items.values.toList()[i].title),

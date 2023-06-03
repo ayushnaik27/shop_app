@@ -42,9 +42,11 @@ class CartPage extends StatelessWidget {
                   SizedBox(width: 5),
                   OutlinedButton(
                     onPressed: () {
-                      Provider.of<Orders>(context, listen: false).addOrder(
-                          cart.items.values.toList(), cart.totalAmount);
-                      cart.clear();
+                      if (cart.totalAmount != 0) {
+                        Provider.of<Orders>(context, listen: false).addOrder(
+                            cart.items.values.toList(), cart.totalAmount);
+                        cart.clear();
+                      }
                     },
                     child: Text('ORDER NOW'),
                   ),

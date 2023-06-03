@@ -8,13 +8,13 @@ import '../providers/cart_provider.dart';
 import '../screens/product_detail_screen.dart';
 
 void main() {
+  // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/providers/cart_provider.dart';
+import 'package:shop_app/screens/cart_screen.dart';
 
 import '../screens/settings_screen.dart';
 import '../widgets/product_grid.dart';
@@ -68,8 +69,11 @@ class _MyHomePageState extends State<MyHomePage> {
               value: cart.itemCount.toString(),
               child: ch as Widget,
             ),
-            child:
-                IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart)),
+            child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(CartPage.routeName);
+                },
+                icon: Icon(Icons.shopping_cart)),
           ),
         ],
       ),

@@ -69,7 +69,6 @@ class Products with ChangeNotifier {
       imageUrl: "https://m.media-amazon.com/images/I/51sAiup+ppL.jpg",
       quantity: 20,
     ),
-
   ];
 
   List<Item> get favItems {

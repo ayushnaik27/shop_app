@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/providers/order_provider.dart';
 
 import '../providers/cart_provider.dart' show Cart;
 import '../widgets/cart_item.dart' as ci;
@@ -39,7 +40,14 @@ class CartPage extends StatelessWidget {
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
                   SizedBox(width: 5),
-                  OutlinedButton(onPressed: () {}, child: Text('ORDER NOW'))
+                  OutlinedButton(
+                    onPressed: () {
+                      Provider.of<Orders>(context, listen: false).addOrder(
+                          cart.items.values.toList(), cart.totalAmount);
+                      cart.clear();
+                    },
+                    child: Text('ORDER NOW'),
+                  ),
                 ]),
           ),
         ),

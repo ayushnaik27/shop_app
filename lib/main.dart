@@ -9,6 +9,7 @@ import './providers/products_provider.dart';
 import '../providers/cart_provider.dart';
 import '../screens/product_detail_screen.dart';
 import './screens/orders_screen.dart';
+import './screens/edit_products_screen.dart';
 
 void main() {
   // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
           CartPage.routeName: (context) => CartPage(),
           OrderScreen.routeName: (context) => OrderScreen(),
           UserProductsScreen.routeName: (context) => UserProductsScreen(),
+          EditProductsScreen.routeName: (context) => EditProductsScreen(),
         },
       ),
     );

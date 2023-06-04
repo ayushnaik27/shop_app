@@ -22,6 +22,26 @@ class CartItem extends StatelessWidget {
     final cart = Provider.of<Cart>(context, listen: false);
     return Dismissible(
       key: ValueKey(prodId),
+      confirmDismiss: (direction) => showDialog(
+          context: context,
+          builder: (ctx) {
+            return AlertDialog(
+              title: Text('Are you sure?'),
+              content: Text('Do you really want to delete an item?'),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(false);
+                    },
+                    child: Text('No')),
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(true);
+                    },
+                    child: Text('Yes')),
+              ],
+            );
+          }),
       child: Card(
         margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
         child: Padding(

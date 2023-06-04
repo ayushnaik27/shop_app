@@ -41,6 +41,9 @@ class ProductItem extends StatelessWidget {
             icon: Icon(Icons.shopping_cart),
             onPressed: () {
               cartItem.addItem(item.id, item.price, item.title);
+              Scaffold.of(context).showBottomSheet((context) {
+                return Text('Added item');
+              });
             },
           ),
         ),

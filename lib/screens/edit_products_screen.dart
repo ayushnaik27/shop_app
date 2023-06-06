@@ -10,34 +10,34 @@ class EditProductsScreen extends StatefulWidget {
 class _EditProductScreenState extends State<EditProductsScreen> {
   final _priceFocus = FocusNode();
   final _descriptionfocus = FocusNode();
-  var _imageUrlController = TextEditingController();
-  final _imageUrlFocus = FocusNode();
+  final _imageUrlController = TextEditingController();
+  // final _imageUrlFocus = FocusNode();
 
   @override
   void dispose() {
-    _imageUrlFocus.removeListener(() {
-      _updateImage();
-    });
-    _imageUrlFocus.dispose();
+    // _imageUrlFocus.removeListener(() {
+    //   _updateImage();
+    // });
+    // _imageUrlFocus.dispose();
     _priceFocus.dispose();
     _descriptionfocus.dispose();
     _imageUrlController.dispose();
     super.dispose();
   }
 
-  @override
-  void initState() {
-    _imageUrlFocus.addListener(() {
-      _updateImage();
-    });
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   _imageUrlFocus.addListener(() {
+  //     _updateImage();
+  //   });
+  //   super.initState();
+  // }
 
-  void _updateImage() {
-    if (!_imageUrlFocus.hasFocus) {
-      setState(() {});
-    }
-  }
+  // void _updateImage() {
+  //   if (!_imageUrlFocus.hasFocus) {
+  //     setState(() {});
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +83,10 @@ class _EditProductScreenState extends State<EditProductsScreen> {
                     border: Border.all(color: Colors.grey),
                   ),
                   child: _imageUrlController.text.isEmpty
-                      ? Text('Enter Url')
+                      ? Text(
+                          'Enter Url',
+                          textAlign: TextAlign.center,
+                        )
                       : FittedBox(
                           child: Image.network(
                             _imageUrlController.text,
@@ -97,6 +100,9 @@ class _EditProductScreenState extends State<EditProductsScreen> {
                     keyboardType: TextInputType.url,
                     textInputAction: TextInputAction.done,
                     controller: _imageUrlController,
+                    onFieldSubmitted: (value) {
+                      setState(() {});
+                    },
                   ),
                 )
               ],

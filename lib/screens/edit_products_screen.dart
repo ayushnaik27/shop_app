@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../models/dummy_data.dart';
+import '../providers/products_provider.dart';
 
 class EditProductsScreen extends StatefulWidget {
   static const routeName = '/edit-products';
@@ -51,12 +53,9 @@ class _EditProductScreenState extends State<EditProductsScreen> {
   // }
 
   void _saveform() {
+    _form.currentState?.validate();
     _form.currentState?.save();
-    print(_existingValue.description);
-    print(_existingValue.id);
-    print(_existingValue.price);
-    print(_existingValue.title);
-    print(_existingValue.imageUrl);
+    Provider.of<Products>(context, listen: false).addProduct(_existingValue);
   }
 
   @override
@@ -84,7 +83,7 @@ class _EditProductScreenState extends State<EditProductsScreen> {
                 FocusScope.of(context).requestFocus(_priceFocus);
               },
               onSaved: (newValue) {
-                Item(
+                _existingValue = Item(
                   id: _existingValue.id,
                   title: newValue as String,
                   price: _existingValue.price,
@@ -92,6 +91,12 @@ class _EditProductScreenState extends State<EditProductsScreen> {
                   imageUrl: _existingValue.imageUrl,
                   quantity: _existingValue.quantity,
                 );
+              },
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter a title';
+                }
+                return null;
               },
             ),
             TextFormField(
@@ -103,7 +108,7 @@ class _EditProductScreenState extends State<EditProductsScreen> {
                 FocusScope.of(context).requestFocus(_descriptionfocus);
               },
               onSaved: (newValue) {
-                Item(
+                _existingValue = Item(
                   id: _existingValue.id,
                   title: _existingValue.title,
                   price: double.parse(newValue as String),
@@ -111,6 +116,18 @@ class _EditProductScreenState extends State<EditProductsScreen> {
                   imageUrl: _existingValue.imageUrl,
                   quantity: _existingValue.quantity,
                 );
+              },
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter a price';
+                }
+                if (double.tryParse(value as String) == null) {
+                  return 'Please enter a valid price';
+                }
+                if (double.parse(value as String) <= 0) {
+                  return 'Please enter a valid price';
+                }
+                return null;
               },
             ),
             TextFormField(
@@ -120,7 +137,7 @@ class _EditProductScreenState extends State<EditProductsScreen> {
               keyboardType: TextInputType.multiline,
               focusNode: _descriptionfocus,
               onSaved: (newValue) {
-                Item(
+                _existingValue = Item(
                   id: _existingValue.id,
                   title: _existingValue.title,
                   price: _existingValue.price,
@@ -128,6 +145,15 @@ class _EditProductScreenState extends State<EditProductsScreen> {
                   imageUrl: _existingValue.imageUrl,
                   quantity: _existingValue.quantity,
                 );
+              },
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter a description';
+                }
+                if (value.length < 10) {
+                  return 'Enter atleast 10 characters';
+                }
+                return null;
               },
             ),
             Row(
@@ -162,7 +188,7 @@ class _EditProductScreenState extends State<EditProductsScreen> {
                       setState(() {});
                     },
                     onSaved: (newValue) {
-                      Item(
+                      _existingValue = Item(
                         id: _existingValue.id,
                         title: _existingValue.title,
                         price: _existingValue.price,
@@ -170,6 +196,12 @@ class _EditProductScreenState extends State<EditProductsScreen> {
                         imageUrl: newValue as String,
                         quantity: _existingValue.quantity,
                       );
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter a description';
+                      }
+                      return null;
                     },
                   ),
                 )

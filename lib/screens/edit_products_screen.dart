@@ -15,12 +15,13 @@ class _EditProductScreenState extends State<EditProductsScreen> {
   final _imageUrlController = TextEditingController();
   final _form = GlobalKey<FormState>();
   var _existingValue = Item(
-      id: null as String,
-      title: '',
-      price: 0,
-      description: '',
-      imageUrl: '',
-      quantity: 0);
+    id: '',
+    title: '',
+    price: 0,
+    description: '',
+    imageUrl: '',
+    quantity: 0,
+  );
   // final _imageUrlFocus = FocusNode();
 
   @override

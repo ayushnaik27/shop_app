@@ -87,25 +87,32 @@ class Products with ChangeNotifier {
   }
 
   void addProduct(Item product) {
-    final url =
-        Uri.parse('https://flutter-shop-app-51776-default-rtdb.firebaseio.com/products.json');
-    http.post(url, body: json.encode({
-      'title': product.title,
-      'description':product.description,
-      'imageUrl':product.imageUrl,
-      'price':product.price,
-      'quantity':product.quantity,
-    }));
-    final newProduct = Item(
-      description: product.description,
-      id: DateTime.now().toString(),
-      imageUrl: product.imageUrl,
-      price: product.price,
-      title: product.title,
-      quantity: 1,
-    );
-    _items.add(newProduct);
-    notifyListeners();
+    final url = Uri.parse(
+        'https://flutter-shop-app-51776-default-rtdb.firebaseio.com/products.json');
+    http
+        .post(url,
+            body: json.encode({
+              'title': product.title,
+              'description': product.description,
+              'imageUrl': product.imageUrl,
+              'price': product.price,
+              'quantity': product.quantity,
+            }))
+        .then((response) {
+      print(json.decode(response.body));
+      final newProduct = Item(
+        description: product.description,
+        id: json.decode(response.body)['name'],
+        imageUrl: product.imageUrl,
+        price: product.price,
+        title: product.title,
+        quantity: 1,
+      );
+      _items.add(newProduct);
+      print(newProduct.id);
+      notifyListeners();
+    });
+
     //a
   }
 }

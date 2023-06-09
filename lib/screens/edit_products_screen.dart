@@ -17,7 +17,7 @@ class _EditProductScreenState extends State<EditProductsScreen> {
   final _imageUrlController = TextEditingController();
   final _form = GlobalKey<FormState>();
   var _existingValue = Item(
-    id: '',
+    id: null,
     title: '',
     price: 0,
     description: '',

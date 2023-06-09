@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class Item with ChangeNotifier {
   
-  final String id;
+  var id;
   final String title;
   final double price;
   final String description;

@@ -14,7 +14,7 @@ class EditProductsScreen extends StatefulWidget {
 class _EditProductScreenState extends State<EditProductsScreen> {
   final _priceFocus = FocusNode();
   final _descriptionfocus = FocusNode();
-  final _imageUrlController = TextEditingController();
+  var _imageUrlController = TextEditingController();
   final _form = GlobalKey<FormState>();
   var _existingValue = Item(
     id: null,
@@ -55,7 +55,41 @@ class _EditProductScreenState extends State<EditProductsScreen> {
   void _saveform() {
     _form.currentState?.validate();
     _form.currentState?.save();
-    Provider.of<Products>(context, listen: false).addProduct(_existingValue);
+    if (_existingValue.id != null) {
+      Provider.of<Products>(context, listen: false)
+          .updateProduct(_existingValue.id, _existingValue);
+    } else {
+      Provider.of<Products>(context, listen: false).addProduct(_existingValue);
+    }
+    Navigator.pop(context);
+  }
+
+  bool _isInit = true;
+  var _initValues = {
+    'title': '',
+    'description': '',
+    'price': '',
+    'imageUrl': '',
+  };
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      final productId = ModalRoute.of(context)?.settings.arguments as String?;
+      if (productId != null) {
+        _existingValue = Provider.of<Products>(context).findById(productId);
+        _initValues = {
+          'title': _existingValue.title,
+          'description': _existingValue.description,
+          'price': _existingValue.price.toString(),
+          // 'imageUrl': _existingValue.imageUrl,
+        };
+        _imageUrlController.text = _existingValue.imageUrl;
+      }
+    }
+    _isInit = false;
+
+    super.didChangeDependencies();
   }
 
   @override
@@ -78,6 +112,7 @@ class _EditProductScreenState extends State<EditProductsScreen> {
           child: ListView(children: [
             TextFormField(
               decoration: InputDecoration(hintText: 'Title'),
+              initialValue: _initValues['title'],
               textInputAction: TextInputAction.next,
               onFieldSubmitted: (_) {
                 FocusScope.of(context).requestFocus(_priceFocus);
@@ -90,6 +125,7 @@ class _EditProductScreenState extends State<EditProductsScreen> {
                   description: _existingValue.description,
                   imageUrl: _existingValue.imageUrl,
                   quantity: _existingValue.quantity,
+                  isFavourite: _existingValue.isFavourite,
                 );
               },
               validator: (value) {
@@ -101,6 +137,7 @@ class _EditProductScreenState extends State<EditProductsScreen> {
             ),
             TextFormField(
               decoration: InputDecoration(hintText: 'Price'),
+              initialValue: _initValues['price'],
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.number,
               focusNode: _priceFocus,
@@ -115,6 +152,7 @@ class _EditProductScreenState extends State<EditProductsScreen> {
                   description: _existingValue.description,
                   imageUrl: _existingValue.imageUrl,
                   quantity: _existingValue.quantity,
+                  isFavourite: _existingValue.isFavourite,
                 );
               },
               validator: (value) {
@@ -132,6 +170,7 @@ class _EditProductScreenState extends State<EditProductsScreen> {
             ),
             TextFormField(
               decoration: InputDecoration(hintText: 'Description'),
+              initialValue: _initValues['description'],
               // textInputAction: TextInputAction.next,
               maxLines: 3,
               keyboardType: TextInputType.multiline,
@@ -144,6 +183,7 @@ class _EditProductScreenState extends State<EditProductsScreen> {
                   description: newValue as String,
                   imageUrl: _existingValue.imageUrl,
                   quantity: _existingValue.quantity,
+                  isFavourite: _existingValue.isFavourite,
                 );
               },
               validator: (value) {
@@ -181,6 +221,7 @@ class _EditProductScreenState extends State<EditProductsScreen> {
                 Expanded(
                   child: TextFormField(
                     decoration: InputDecoration(hintText: 'Image URL'),
+                    // initialValue: _initValues['imageUrl'],
                     keyboardType: TextInputType.url,
                     textInputAction: TextInputAction.done,
                     controller: _imageUrlController,
@@ -195,6 +236,7 @@ class _EditProductScreenState extends State<EditProductsScreen> {
                         description: _existingValue.description,
                         imageUrl: newValue as String,
                         quantity: _existingValue.quantity,
+                        isFavourite: _existingValue.isFavourite,
                       );
                     },
                     validator: (value) {

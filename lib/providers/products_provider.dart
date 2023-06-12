@@ -111,6 +111,9 @@ class Products with ChangeNotifier {
       _items.add(newProduct);
       print(newProduct.id);
       notifyListeners();
+    }).catchError((error) {
+      print(error);
+      throw error;
     });
 
     //a

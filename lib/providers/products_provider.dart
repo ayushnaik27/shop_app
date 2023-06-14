@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -147,16 +148,39 @@ class Products with ChangeNotifier {
     }
   }
 
-  void updateProduct(String id, Item newproduct) {
+  Future<void> updateProduct(String id, Item newproduct) async {
     final prodIndex = _items.indexWhere((element) => element.id == id);
+    final url = Uri.parse(
+        'https://flutter-shop-app-51776-default-rtdb.firebaseio.com/products/$id.json');
+
+    await http.patch(url,
+        body: json.encode({
+          'title': newproduct.title,
+          'price': newproduct.price,
+          'imageUrl': newproduct.imageUrl,
+          'description': newproduct.description,
+        }));
+
     if (prodIndex >= 0) {
       _items[prodIndex] = newproduct;
       notifyListeners();
     }
   }
 
-  void deleteProduct(String id) {
-    _items.removeWhere((element) => element.id == id);
+  Future<void> deleteProduct(String id) async {
+    final url = Uri.parse(
+        'https://flutter-shop-app-51776-default-rtdb.firebaseio.com/products/$id.json');
+    final _existingProdIndex = _items.indexWhere((element) => element.id == id);
+    var _existingProd = _items[_existingProdIndex];
+    _items.removeAt(_existingProdIndex);
     notifyListeners();
+
+    final response = await http.delete(url);
+    if (response.statusCode >= 400) {
+      _items.insert(_existingProdIndex, _existingProd);
+      notifyListeners();
+      throw HttpException('Deleting Failed');
+    }
+    _existingProd.dispose();
   }
 }

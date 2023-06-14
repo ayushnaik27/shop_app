@@ -13,6 +13,8 @@ class UserProductsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scaffold = Scaffold.of(context);
+
     return Padding(
       padding: EdgeInsets.all(8),
       child: ListTile(
@@ -31,8 +33,17 @@ class UserProductsItem extends StatelessWidget {
               icon: Icon(Icons.edit),
             ),
             IconButton(
-              onPressed: () {
-                Provider.of<Products>(context, listen: false).deleteProduct(id);
+              onPressed: () async {
+                try {
+                  Provider.of<Products>(context, listen: false)
+                      .deleteProduct(id);
+                } catch (error) {
+                  scaffold.showBottomSheet(
+                    (context) {
+                      return Text('deleting failed');
+                    },
+                  );
+                }
               },
               icon: Icon(
                 Icons.delete,

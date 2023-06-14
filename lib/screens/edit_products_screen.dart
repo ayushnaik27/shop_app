@@ -60,18 +60,14 @@ class _EditProductScreenState extends State<EditProductsScreen> {
     _form.currentState?.validate();
     _form.currentState?.save();
     if (_existingValue.id != null) {
-      Provider.of<Products>(context, listen: false)
+      await Provider.of<Products>(context, listen: false)
           .updateProduct(_existingValue.id, _existingValue);
-      setState(() {
-        isLoading = false;
-      });
-      Navigator.pop(context);
     } else {
       try {
         await Provider.of<Products>(context, listen: false)
             .addProduct(_existingValue);
       } catch (error) {
-        showDialog(
+        await showDialog(
             context: context,
             builder: (ctx) {
               return AlertDialog(
@@ -87,14 +83,17 @@ class _EditProductScreenState extends State<EditProductsScreen> {
                 ],
               );
             });
-      } finally {
-        setState(() {
-          isLoading = false;
-        });
-        Navigator.pop(context);
-      }
-      ;
+      } //finally {
+      //   setState(() {
+      //     isLoading = false;
+      //   });
+      //   Navigator.pop(context);
+      // }
     }
+    setState(() {
+      isLoading = false;
+    });
+    Navigator.pop(context);
   }
 
   bool _isInit = true;

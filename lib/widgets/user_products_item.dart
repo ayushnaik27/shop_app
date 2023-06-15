@@ -23,7 +23,7 @@ class UserProductsItem extends StatelessWidget {
         ),
         title: Text(title),
         trailing: Container(
-          width: 80,
+          width: 100,
           child: Row(children: [
             IconButton(
               onPressed: () {

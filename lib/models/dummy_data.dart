@@ -1,11 +1,9 @@
-// List<Item> items = [
-  
-// ];
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Item with ChangeNotifier {
-  
   var id;
   final String title;
   final double price;
@@ -24,10 +22,25 @@ class Item with ChangeNotifier {
     this.isFavourite = false,
   });
 
-  
-
-  void favouriteToggle(){
-    isFavourite=!isFavourite;
+  Future<void> favouriteToggle() async {
+    final oldStatus = isFavourite;
+    isFavourite = !isFavourite;
     notifyListeners();
+
+    final url = Uri.parse(
+        'https://flutter-shop-app-51776-default-rtdb.firebaseio.com/products/$id.json');
+    try {
+      final response = await http.patch(url,
+          body: json.encode({
+            'isFavourite': isFavourite,
+          }));
+          if(response.statusCode>=400){
+            isFavourite= oldStatus;
+            notifyListeners();
+          }
+    } catch (error) {
+      isFavourite = oldStatus;
+      notifyListeners();
+    }
   }
 }

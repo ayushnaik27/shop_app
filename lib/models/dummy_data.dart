@@ -34,10 +34,10 @@ class Item with ChangeNotifier {
           body: json.encode({
             'isFavourite': isFavourite,
           }));
-          if(response.statusCode>=400){
-            isFavourite= oldStatus;
-            notifyListeners();
-          }
+      if (response.statusCode >= 400) {
+        isFavourite = oldStatus;
+        notifyListeners();
+      }
     } catch (error) {
       isFavourite = oldStatus;
       notifyListeners();

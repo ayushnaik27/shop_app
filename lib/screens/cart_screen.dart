@@ -76,23 +76,25 @@ class _OrderButtonState extends State<OrderButton> {
   bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
-      onPressed: (widget.cart.totalAmount <= 0 || _isLoading)
-          ? null
-          : () {
-              setState(() {
-                _isLoading = true;
-              });
-              Provider.of<Orders>(context, listen: false).addOrder(
-                widget.cart.items.values.toList(),
-                widget.cart.totalAmount,
-              );
-              setState(() {
-                _isLoading = false;
-              });
-              widget.cart.clear();
-            },
-      child: _isLoading ? CircularProgressIndicator() : Text('ORDER NOW'),
-    );
+    return _isLoading
+        ? const CircularProgressIndicator()
+        : OutlinedButton(
+            onPressed: (widget.cart.totalAmount <= 0 || _isLoading)
+                ? null
+                : () async {
+                    setState(() {
+                      _isLoading = true;
+                    });
+                    await Provider.of<Orders>(context, listen: false).addOrder(
+                      widget.cart.items.values.toList(),
+                      widget.cart.totalAmount,
+                    );
+                    setState(() {
+                      _isLoading = false;
+                    });
+                    widget.cart.clear();
+                  },
+            child: Text('ORDER NOW'),
+          );
   }
 }

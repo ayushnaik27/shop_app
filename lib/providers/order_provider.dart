@@ -7,7 +7,7 @@ import 'cart_provider.dart';
 
 class OrderItem {
   final String? id;
-  
+
   final DateTime time;
   final double amount;
   final List<CartItem> cartitem;
@@ -35,7 +35,7 @@ class Orders with ChangeNotifier {
     print(json.decode(response.body));
     List<OrderItem> loadedOrders = [];
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
-    if (extractedData == null) return;
+
     extractedData.forEach((orderId, orderData) {
       loadedOrders.add(
         OrderItem(
@@ -69,7 +69,7 @@ class Orders with ChangeNotifier {
                     'quantity': ci.quantity,
                     'id': ci.id
                   })
-              .toString(),
+              .toList(),
         }));
     _orders.insert(
       0,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/providers/auth_provider.dart';
 import 'package:shop_app/providers/order_provider.dart';
 import 'package:shop_app/screens/user_products_screen.dart';
 import 'screens/cart_screen.dart';
@@ -10,6 +11,7 @@ import '../providers/cart_provider.dart';
 import '../screens/product_detail_screen.dart';
 import './screens/orders_screen.dart';
 import './screens/edit_products_screen.dart';
+import './screens/auth_screen.dart';
 
 void main() {
   // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
@@ -22,6 +24,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
+          create: (context) => Auth(),
+        ),
+        ChangeNotifierProvider(
           create: (context) => Products(),
         ),
         ChangeNotifierProvider(
@@ -33,7 +38,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'MyShop',
-        home: MyHomePage(),
+        home: AuthScreen(),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             appBarTheme: AppBarTheme(backgroundColor: Colors.pink),

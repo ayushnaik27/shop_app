@@ -22,36 +22,38 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => Auth(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => Products(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => Cart(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => Orders(),
-        ),
-      ],
-      child: MaterialApp(
-        title: 'MyShop',
-        home: AuthScreen(),
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-            appBarTheme: AppBarTheme(backgroundColor: Colors.pink),
-            textTheme: TextTheme(titleMedium: TextStyle(color: Colors.amber))),
-        routes: {
-          MyHomePage.routeName: (context) => MyHomePage(),
-          ProductDetailPage.routeName: (context) => ProductDetailPage(),
-          CartPage.routeName: (context) => CartPage(),
-          OrderScreen.routeName: (context) => OrderScreen(),
-          UserProductsScreen.routeName: (context) => UserProductsScreen(),
-          EditProductsScreen.routeName: (context) => EditProductsScreen(),
-        },
-      ),
-    );
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => Auth(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => Products(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => Cart(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => Orders(),
+          ),
+        ],
+        child: Consumer<Auth>(
+          builder: (ctx, auth, _) => MaterialApp(
+            title: 'MyShop',
+            home: auth.isAuth ? MyHomePage() : AuthScreen(),
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+                appBarTheme: AppBarTheme(backgroundColor: Colors.pink),
+                textTheme:
+                    TextTheme(titleMedium: TextStyle(color: Colors.amber))),
+            routes: {
+              MyHomePage.routeName: (context) => MyHomePage(),
+              ProductDetailPage.routeName: (context) => ProductDetailPage(),
+              CartPage.routeName: (context) => CartPage(),
+              OrderScreen.routeName: (context) => OrderScreen(),
+              UserProductsScreen.routeName: (context) => UserProductsScreen(),
+              EditProductsScreen.routeName: (context) => EditProductsScreen(),
+            },
+          ),
+        ));
   }
 }

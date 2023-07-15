@@ -5,9 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Auth with ChangeNotifier {
-  // String _token;
-  // DateTime _expiryDate;
-  // String _userId;
+  String? _token;
+  DateTime? _expiryDate;
+  String? _userId;
+
+  bool get isAuth {
+    return (_token != null);
+  }
+
+  String? get token {
+    if (_token != '' && _expiryDate!.isAfter(DateTime.now())) {
+      return _token;
+    }
+    ;
+    return null;
+  }
 
   Future<void> authenticate(
       String email, String password, String urlSegment) async {
@@ -28,6 +40,14 @@ class Auth with ChangeNotifier {
           responseData['error']['message'] != null) {
         throw HttpException(responseData['error']['message']);
       }
+      _token = responseData['idToken'];
+      _userId = responseData['localId'];
+      _expiryDate = DateTime.now().add(
+        Duration(
+          seconds: int.parse(responseData['expiresIn']),
+        ),
+      );
+      notifyListeners();
     } catch (error) {
       throw error;
     }
@@ -63,3 +83,6 @@ class Auth with ChangeNotifier {
     return authenticate(email, password, 'signInWithPassword');
   }
 }
+
+//Have to learn about proxyprovider
+

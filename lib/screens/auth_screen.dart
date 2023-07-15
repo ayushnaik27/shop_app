@@ -95,7 +95,6 @@ class _AuthCardState extends State<AuthCard> {
         //Log User In
         await Provider.of<Auth>(context, listen: false).logIn(
             _authData['email'].toString(), _authData['password'].toString());
-        Navigator.pushReplacementNamed(context, '/main');
       } else {
         //Sign User Up
         await Provider.of<Auth>(context, listen: false).signUp(

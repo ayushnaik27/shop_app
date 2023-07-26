@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/providers/auth_provider.dart';
 import 'package:shop_app/providers/order_provider.dart';
@@ -14,7 +15,7 @@ import './screens/edit_products_screen.dart';
 import './screens/auth_screen.dart';
 
 void main() {
-  // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+  // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.top]);
   runApp(MyApp());
 }
 

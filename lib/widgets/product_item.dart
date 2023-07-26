@@ -7,6 +7,8 @@ import '../models/dummy_data.dart';
 import '../providers/cart_provider.dart';
 
 class ProductItem extends StatelessWidget {
+  const ProductItem({super.key});
+
   // final Item item;
 
   // ProductItem({required this.item});
@@ -38,17 +40,17 @@ class ProductItem extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           trailing: IconButton(
-            icon: Icon(Icons.shopping_cart),
+            icon: const Icon(Icons.shopping_cart),
             onPressed: () {
               cartItem.addItem(item.id, item.price, item.title);
               Scaffold.of(context).showBottomSheet((context) {
-                return Text('Added item');
+                return const Text('Added item');
               });
             },
           ),
         ),
         child: GestureDetector(
-          child: Image.network(item.imageUrl),
+          child: Image.network(item.imageUrl,fit: BoxFit.fitWidth),
           onTap: () {
             Navigator.of(context)
                 .pushNamed(ProductDetailPage.routeName, arguments: item.id);

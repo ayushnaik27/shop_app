@@ -8,7 +8,7 @@ import '../providers/order_provider.dart' as ord;
 class OrderItem extends StatefulWidget {
   final ord.OrderItem order;
 
-  OrderItem(this.order);
+  const OrderItem(this.order, {super.key});
 
   @override
   State<OrderItem> createState() => _OrderItemState();
@@ -19,7 +19,7 @@ class _OrderItemState extends State<OrderItem> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       child: Column(
         children: [
           ListTile(
@@ -37,7 +37,7 @@ class _OrderItemState extends State<OrderItem> {
           ),
           if (_isExpanded)
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
               height: min(widget.order.cartitem.length * 15.0 + 20, 100),
               child: ListView(
                   children: widget.order.cartitem

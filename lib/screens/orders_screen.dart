@@ -8,21 +8,23 @@ import '../providers/order_provider.dart';
 class OrderScreen extends StatelessWidget {
   static const routeName = '/orders';
 
+  const OrderScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     // final orderData = Provider.of<Orders>(context);
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Your Orders'),
+          title: const Text('Your Orders'),
         ),
-        drawer: AppDrawer(),
+        drawer: const AppDrawer(),
         body: FutureBuilder(
           future:
               Provider.of<Orders>(context, listen: false).fetchAndSetOrders(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator(color: Colors.amber,));
             } else {
               if (snapshot.error != null) {
                 //....

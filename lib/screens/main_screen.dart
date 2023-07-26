@@ -26,6 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _isInit = true;
   bool _isLoading = false;
 
+  @override
   void didChangeDependencies() {
     if (_isInit) {
       setState(() {
@@ -44,20 +45,20 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       appBar: AppBar(
-        title: Text('Shop Ki List'),
-        backgroundColor: Colors.pink,
+        title: const Text('My Shop'),
+        // backgroundColor: Colors.pink,
         actions: [
-          PopupMenuButton(
+          PopupMenuButton(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
             itemBuilder: (_) => [
-              PopupMenuItem(
+              const PopupMenuItem(
+                value: FilterOptions.favourites,//0
                 child: Text('Only Favourites'),
-                value: FilterOptions.favourites,
               ),
-              PopupMenuItem(
+              const PopupMenuItem(
+                value: FilterOptions.all,//1
                 child: Text('All Items'),
-                value: FilterOptions.all,
               )
             ],
             onSelected: (value) {
@@ -80,12 +81,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   Navigator.of(context).pushNamed(CartPage.routeName);
                 },
-                icon: Icon(Icons.shopping_cart)),
+                icon: const Icon(Icons.shopping_cart)),
           ),
         ],
       ),
       body: _isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator(color: Colors.amber,))
           : ProductGrid(showFavourites),
     );
   }

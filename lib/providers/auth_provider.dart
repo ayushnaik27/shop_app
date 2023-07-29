@@ -9,6 +9,10 @@ class Auth with ChangeNotifier {
   DateTime? _expiryDate;
   String? _userId;
 
+  String? get userId{
+      return _userId;
+  }
+
   bool get isAuth {
     return (_token != null);
   }
@@ -17,7 +21,7 @@ class Auth with ChangeNotifier {
     if (_token != '' && _expiryDate!.isAfter(DateTime.now())) {
       return _token;
     }
-    ;
+
     return null;
   }
 
@@ -32,6 +36,7 @@ class Auth with ChangeNotifier {
           'email': email,
           'password': password,
           'returnSecureToken': true,
+          
         }),
       );
       final responseData = json.decode(response.body);

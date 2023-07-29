@@ -57,7 +57,7 @@ class AuthCard extends StatefulWidget {
 class _AuthCardState extends State<AuthCard> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   AuthMode _authmode = AuthMode.Login;
-  Map<String, String> _authData = {
+  final Map<String, String> _authData = {
     'email': '',
     'password': '',
   };
@@ -69,14 +69,14 @@ class _AuthCardState extends State<AuthCard> {
     showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-              title: Text('An Error Occured'),
+              title: const Text('An Error Occured'),
               content: Text(message),
               actions: [
                 TextButton(
                     onPressed: () {
                       Navigator.pop(ctx);
                     },
-                    child: Text('Okay'))
+                    child: const Text('Okay'))
               ],
             ));
   }
@@ -160,7 +160,7 @@ class _AuthCardState extends State<AuthCard> {
               child: Column(
             children: [
               TextFormField(
-                decoration: InputDecoration(labelText: 'E-mail'),
+                decoration: const InputDecoration(labelText: 'E-mail'),
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value!.isEmpty || !value.contains('@')) {
@@ -172,7 +172,7 @@ class _AuthCardState extends State<AuthCard> {
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Password'),
+                decoration: const InputDecoration(labelText: 'Password'),
                 obscureText: true,
                 controller: _passwordController,
                 validator: (value) {
@@ -187,7 +187,7 @@ class _AuthCardState extends State<AuthCard> {
               if (_authmode == AuthMode.Signup)
                 TextFormField(
                   enabled: _authmode == AuthMode.Signup,
-                  decoration: InputDecoration(labelText: 'Password'),
+                  decoration: const InputDecoration(labelText: 'Confirm Password'),
                   obscureText: true,
                   validator: _authmode == AuthMode.Signup
                       ? (value) {
@@ -202,7 +202,7 @@ class _AuthCardState extends State<AuthCard> {
                 ),
               const SizedBox(height: 20),
               if (_isLoading)
-                CircularProgressIndicator()
+                const CircularProgressIndicator(color: Colors.amber,)
               else
                 ElevatedButton(
                   onPressed: _submit,

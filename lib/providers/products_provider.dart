@@ -7,6 +7,10 @@ import 'package:http/http.dart' as http;
 import '../models/dummy_data.dart';
 
 class Products with ChangeNotifier {
+
+  final String authToken;
+  final String userId;
+
   List<Item> _items = [
     // Item(
     //   id: "1",
@@ -75,6 +79,8 @@ class Products with ChangeNotifier {
     // ),
   ];
 
+  Products(this.authToken,this._items,this.userId);
+
   List<Item> get favItems {
     return _items.where((prodItem) => prodItem.isFavourite).toList();
   }
@@ -89,7 +95,7 @@ class Products with ChangeNotifier {
 
   Future<void> fetchAndSetProduct() async {
     final url = Uri.parse(
-        'https://flutter-shop-app-51776-default-rtdb.firebaseio.com/products.json');
+        'https://flutter-shop-app-51776-default-rtdb.firebaseio.com/products.json?auth=$authToken&orderBy="creatorId"&equalTo="$userId"');
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body);
@@ -117,7 +123,7 @@ class Products with ChangeNotifier {
 
   Future<void> addProduct(Item product) async {
     final url = Uri.parse(
-        'https://flutter-shop-app-51776-default-rtdb.firebaseio.com/products.json');
+        'https://flutter-shop-app-51776-default-rtdb.firebaseio.com/products.json?auth=$authToken');
     try {
       final response = await http.post(
         url,
@@ -127,6 +133,8 @@ class Products with ChangeNotifier {
           'imageUrl': product.imageUrl,
           'price': product.price,
           'quantity': product.quantity,
+          'creatorId':userId,
+          
         }),
       );
 

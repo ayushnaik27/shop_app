@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:provider/provider.dart';
 import 'package:shop_app/providers/auth_provider.dart';
 import 'package:shop_app/providers/order_provider.dart';
@@ -27,8 +27,9 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (context) => Auth(),
           ),
-          ChangeNotifierProvider(
-            create: (context) => Products(),
+          ChangeNotifierProxyProvider<Auth,Products>(
+            update: (context, auth, previous) => Products(auth.token.toString(), previous==null? []:previous.items,auth.userId.toString()),
+            create: (context) => Products('',[],''),
           ),
           ChangeNotifierProvider(
             create: (context) => Cart(),
@@ -43,9 +44,9 @@ class MyApp extends StatelessWidget {
             home: auth.isAuth ? MyHomePage() : AuthScreen(),
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
-                appBarTheme: AppBarTheme(backgroundColor: Colors.pink),
+                appBarTheme: const AppBarTheme(backgroundColor: Colors.pink),
                 textTheme:
-                    TextTheme(titleMedium: TextStyle(color: Colors.amber))),
+                    const TextTheme(titleMedium: TextStyle(color: Colors.amber))),
             routes: {
               MyHomePage.routeName: (context) => MyHomePage(),
               ProductDetailPage.routeName: (context) => ProductDetailPage(),

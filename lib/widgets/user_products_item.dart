@@ -9,14 +9,14 @@ class UserProductsItem extends StatelessWidget {
   final String title;
   final String imageUrl;
 
-  UserProductsItem(this.title, this.imageUrl, this.id);
+  const UserProductsItem(this.title, this.imageUrl, this.id, {super.key});
 
   @override
   Widget build(BuildContext context) {
     final scaffold = Scaffold.of(context);
 
     return Padding(
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       child: ListTile(
         leading: CircleAvatar(
           backgroundImage: NetworkImage(imageUrl),
@@ -30,17 +30,37 @@ class UserProductsItem extends StatelessWidget {
                 Navigator.of(context)
                     .pushNamed(EditProductsScreen.routeName, arguments: id);
               },
-              icon: Icon(Icons.edit),
+              icon: const Icon(Icons.edit),
             ),
             IconButton(
               onPressed: () async {
                 try {
-                  Provider.of<Products>(context, listen: false)
-                      .deleteProduct(id);
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Are you sure?'),
+                      content:
+                          const Text('Do you really want to delete your product?'),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('No')),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              Provider.of<Products>(context, listen: false)
+                                  .deleteProduct(id);
+                            },
+                            child: const Text('Yes')),
+                      ],
+                    ),
+                  );
                 } catch (error) {
                   scaffold.showBottomSheet(
                     (context) {
-                      return Text('deleting failed');
+                      return const Text('deleting failed');
                     },
                   );
                 }

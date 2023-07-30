@@ -114,6 +114,7 @@ class Products with ChangeNotifier {
             description: prodData['description'],
             imageUrl: prodData['imageUrl'],
             quantity: prodData['quantity'],
+            
           ),
         );
       });
@@ -181,17 +182,17 @@ class Products with ChangeNotifier {
   Future<void> deleteProduct(String id) async {
     final url = Uri.parse(
         'https://flutter-shop-app-51776-default-rtdb.firebaseio.com/products/$id.json');
-    final _existingProdIndex = _items.indexWhere((element) => element.id == id);
-    var _existingProd = _items[_existingProdIndex];
-    _items.removeAt(_existingProdIndex);
+    final existingProdIndex = _items.indexWhere((element) => element.id == id);
+    var existingProd = _items[existingProdIndex];
+    _items.removeAt(existingProdIndex);
     notifyListeners();
 
     final response = await http.delete(url);
     if (response.statusCode >= 400) {
-      _items.insert(_existingProdIndex, _existingProd);
+      _items.insert(existingProdIndex, existingProd);
       notifyListeners();
-      throw HttpException('Deleting Failed');
+      throw const HttpException('Deleting Failed');
     }
-    _existingProd.dispose();
+    existingProd.dispose();
   }
 }

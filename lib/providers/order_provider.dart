@@ -21,6 +21,9 @@ class OrderItem {
 }
 
 class Orders with ChangeNotifier {
+  final String authToken;
+  final String userId;
+  Orders(this.authToken,this._orders,this.userId);
   final timeStamp = DateTime.now();
   List<OrderItem> _orders = [];
 
@@ -30,7 +33,7 @@ class Orders with ChangeNotifier {
 
   Future<void> fetchAndSetOrders() async {
     final url = Uri.parse(
-        'https://flutter-shop-app-51776-default-rtdb.firebaseio.com/orders.json');
+        'https://flutter-shop-app-51776-default-rtdb.firebaseio.com/orders.json?auth=$authToken');
     final response = await http.get(url);
     print(json.decode(response.body));
     List<OrderItem> loadedOrders = [];

@@ -34,14 +34,15 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (context) => Cart(),
           ),
-          ChangeNotifierProvider(
-            create: (context) => Orders(),
+          ChangeNotifierProxyProvider<Auth,Orders>(
+            update: (context, auth, previous) => Orders(auth.token.toString(),previous==null? []:previous.orders,auth.userId.toString()) ,
+            create: (context) => Orders('',[],''),
           ),
         ],
         child: Consumer<Auth>(
           builder: (ctx, auth, _) => MaterialApp(
             title: 'MyShop',
-            home: auth.isAuth ? MyHomePage() : AuthScreen(),
+            home: auth.isAuth ? MyHomePage() : const AuthScreen(),
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
                 appBarTheme: const AppBarTheme(backgroundColor: Colors.pink),
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
               MyHomePage.routeName: (context) => MyHomePage(),
               ProductDetailPage.routeName: (context) => ProductDetailPage(),
               CartPage.routeName: (context) => CartPage(),
-              OrderScreen.routeName: (context) => OrderScreen(),
+              OrderScreen.routeName: (context) => const OrderScreen(),
               UserProductsScreen.routeName: (context) => UserProductsScreen(),
               EditProductsScreen.routeName: (context) => EditProductsScreen(),
             },

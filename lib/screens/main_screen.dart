@@ -15,7 +15,7 @@ enum FilterOptions {
 }
 
 class MyHomePage extends StatefulWidget {
-  static const routeName = '/main';
+  static const routeName = '/';
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();

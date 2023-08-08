@@ -29,8 +29,8 @@ class ProductItem extends StatelessWidget {
             builder: (context, value, child) => IconButton(
               icon: Icon(
                   item.isFavourite ? Icons.favorite : Icons.favorite_border),
-              onPressed: () {
-                item.favouriteToggle();
+              onPressed: () async {
+                await item.favouriteToggle();
               },
             ),
             // child: Text('Never changes')// Ye aisa child hai consiumer ka jisko hame channge nahi krna hai

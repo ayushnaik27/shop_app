@@ -27,29 +27,41 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (context) => Auth(),
           ),
-          ChangeNotifierProxyProvider<Auth,Products>(
-            update: (context, auth, previous) => Products(auth.token.toString(), previous==null? []:previous.items,auth.userId.toString()),
-            create: (context) => Products('',[],''),
+          ChangeNotifierProxyProvider<Auth, Products>(
+            update: (context, auth, previous) => Products(auth.token.toString(),
+                previous == null ? [] : previous.items, auth.userId.toString()),
+            create: (context) => Products('', [], ''),
           ),
           ChangeNotifierProvider(
             create: (context) => Cart(),
           ),
-          ChangeNotifierProxyProvider<Auth,Orders>(
-            update: (context, auth, previous) => Orders(auth.token.toString(),previous==null? []:previous.orders,auth.userId.toString()) ,
-            create: (context) => Orders('',[],''),
+          ChangeNotifierProxyProvider<Auth, Orders>(
+            update: (context, auth, previous) => Orders(
+                auth.token.toString(),
+                previous == null ? [] : previous.orders,
+                auth.userId.toString()),
+            create: (context) => Orders('', [], ''),
           ),
         ],
         child: Consumer<Auth>(
           builder: (ctx, auth, _) => MaterialApp(
             title: 'MyShop',
-            home: auth.isAuth ? MyHomePage() : const AuthScreen(),
+            home: auth.isAuth
+                ? MyHomePage()
+                : FutureBuilder(
+                    future: auth.tryAutoLogin(),
+                    builder: (ctx, isAuthSnapshot) =>
+                        isAuthSnapshot.connectionState ==
+                                ConnectionState.waiting
+                            ? const Center(child: Text('Loading'))
+                            : const AuthScreen()),
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
                 appBarTheme: const AppBarTheme(backgroundColor: Colors.pink),
-                textTheme:
-                    const TextTheme(titleMedium: TextStyle(color: Colors.amber))),
+                textTheme: const TextTheme(
+                    titleMedium: TextStyle(color: Colors.amber))),
             routes: {
-              MyHomePage.routeName: (context) => MyHomePage(),
+              // MyHomePage.routeName: (context) => MyHomePage(),
               ProductDetailPage.routeName: (context) => ProductDetailPage(),
               CartPage.routeName: (context) => CartPage(),
               OrderScreen.routeName: (context) => const OrderScreen(),

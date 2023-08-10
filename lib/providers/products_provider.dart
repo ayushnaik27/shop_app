@@ -4,10 +4,29 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/dummy_data.dart';
+// import '../models/dummy_data.dart';
+
+class Item with ChangeNotifier {
+  var id;
+  final String title;
+  final double price;
+  final String description;
+  final String imageUrl;
+  final int quantity;
+  bool isFavourite;
+
+  Item({
+    required this.id,
+    required this.title,
+    required this.price,
+    required this.description,
+    required this.imageUrl,
+    required this.quantity,
+    this.isFavourite=false,
+  });
+}
 
 class Products with ChangeNotifier {
-
   final String authToken;
   final String userId;
 
@@ -79,7 +98,7 @@ class Products with ChangeNotifier {
     // ),
   ];
 
-  Products(this.authToken,this._items,this.userId);
+  Products(this.authToken, this._items, this.userId);
 
   List<Item> get favItems {
     return _items.where((prodItem) => prodItem.isFavourite).toList();
@@ -93,9 +112,16 @@ class Products with ChangeNotifier {
     return _items.firstWhere((element) => element.id == id);
   }
 
+  bool isFavourite(String id) {
+    final Item item = _items.firstWhere((element) => element.id == id);
+    if (item.isFavourite) return true;
+
+    return false;
+  }
 
   Future<void> fetchAndSetProduct([bool filterByUser = false]) async {
-  final String filterString = filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '' ;
+    final String filterString =
+        filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
 
     final url = Uri.parse(
         'https://flutter-shop-app-51776-default-rtdb.firebaseio.com/products.json?auth=$authToken&$filterString');
@@ -114,7 +140,6 @@ class Products with ChangeNotifier {
             description: prodData['description'],
             imageUrl: prodData['imageUrl'],
             quantity: prodData['quantity'],
-            
           ),
         );
       });
@@ -137,8 +162,7 @@ class Products with ChangeNotifier {
           'imageUrl': product.imageUrl,
           'price': product.price,
           'quantity': product.quantity,
-          'creatorId':userId,
-          
+          'creatorId': userId,
         }),
       );
 
@@ -177,6 +201,43 @@ class Products with ChangeNotifier {
       _items[prodIndex] = newproduct;
       notifyListeners();
     }
+  }
+
+  // Future<void> favouriteToggle(String id) async {
+    
+  //   final item = _items.firstWhere((element) => element.id == id);
+
+  //   final oldStatus = item.isFavourite;
+  //   item.isFavourite = !item.isFavourite;
+  //   notifyListeners();
+
+  //   final url = Uri.parse(
+  //       'https://flutter-shop-app-51776-default-rtdb.firebaseio.com/users/$userId.json');
+  //   try {
+  //     final response = await http.post(url,
+  //         body: json.encode({
+  //           'isFavourite': isFavourite,
+  //         }));
+  //         print(response.body);
+
+  //     if (response.statusCode >= 400) {
+  //       item.isFavourite = oldStatus;
+  //       notifyListeners();
+  //     }
+  //   } catch (error) {
+  //     item.isFavourite = oldStatus;
+  //     notifyListeners();
+  //   }
+  // }
+
+  void favouriteToggle(String id){
+    Item item= _items.firstWhere((element) => element.id==id);
+    print(item.isFavourite);
+    bool oldStatus=item.isFavourite;
+    item.isFavourite=!item.isFavourite;
+    notifyListeners();
+    print(item.isFavourite);
+
   }
 
   Future<void> deleteProduct(String id) async {

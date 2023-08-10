@@ -1,10 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:shop_app/screens/product_detail_screen.dart';
 
-import '../models/dummy_data.dart';
+// import '../models/dummy_data.dart';
 import '../providers/cart_provider.dart';
+import '../providers/products_provider.dart';
+
 
 class ProductItem extends StatelessWidget {
   const ProductItem({super.key});
@@ -25,12 +29,14 @@ class ProductItem extends StatelessWidget {
       child: GridTile(
         footer: GridTileBar(
           backgroundColor: Colors.black87,
-          leading: Consumer<Item>(
-            builder: (context, value, child) => IconButton(
+          leading:  Consumer<Item>(
+            
+            builder: (context,item , child) => IconButton(
               icon: Icon(
                   item.isFavourite ? Icons.favorite : Icons.favorite_border),
-              onPressed: () async {
-                await item.favouriteToggle();
+              onPressed: () {
+                print('${item.isFavourite} la la');
+                Provider.of<Products>(context,listen: false).favouriteToggle(item.id);
               },
             ),
             // child: Text('Never changes')// Ye aisa child hai consiumer ka jisko hame channge nahi krna hai

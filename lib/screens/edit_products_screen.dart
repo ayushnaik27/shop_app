@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/dummy_data.dart';
 import '../providers/products_provider.dart';
 
 class EditProductsScreen extends StatefulWidget {

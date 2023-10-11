@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shop_app/providers/cart_provider.dart';
 import 'package:shop_app/screens/cart_screen.dart';
 import 'package:shop_app/widgets/drawer.dart';
+import 'package:shop_app/widgets/shimmer.dart';
 
 import '../providers/products_provider.dart';
 import '../widgets/product_grid.dart';
@@ -86,8 +87,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator(color: Colors.amber,))
+          ? const HomeShimmer()
           : ProductGrid(showFavourites),
     );
   }
 }
+
+

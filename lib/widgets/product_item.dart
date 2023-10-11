@@ -6,9 +6,9 @@ import 'package:provider/provider.dart';
 import 'package:shop_app/screens/product_detail_screen.dart';
 
 // import '../models/dummy_data.dart';
+import '../providers/auth_provider.dart';
 import '../providers/cart_provider.dart';
 import '../providers/products_provider.dart';
-
 
 class ProductItem extends StatelessWidget {
   const ProductItem({super.key});
@@ -23,20 +23,21 @@ class ProductItem extends StatelessWidget {
       listen: false,
     );
     final cartItem = Provider.of<Cart>(context, listen: false);
+    final authData = Provider.of<Auth>(context, listen: false);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
         footer: GridTileBar(
           backgroundColor: Colors.black87,
-          leading:  Consumer<Item>(
-            
-            builder: (context,item , child) => IconButton(
+          leading: Consumer<Item>(
+            builder: (context, item, child) => IconButton(
               icon: Icon(
                   item.isFavourite ? Icons.favorite : Icons.favorite_border),
               onPressed: () {
                 print('${item.isFavourite} la la');
-                Provider.of<Products>(context,listen: false).favouriteToggle(item.id);
+                item.toggleFavouriteStatus(
+                    authData.token.toString(), authData.userId);
               },
             ),
             // child: Text('Never changes')// Ye aisa child hai consiumer ka jisko hame channge nahi krna hai
@@ -56,7 +57,7 @@ class ProductItem extends StatelessWidget {
           ),
         ),
         child: GestureDetector(
-          child: Image.network(item.imageUrl,fit: BoxFit.fitWidth),
+          child: Image.network(item.imageUrl, fit: BoxFit.fitWidth),
           onTap: () {
             Navigator.of(context)
                 .pushNamed(ProductDetailPage.routeName, arguments: item.id);

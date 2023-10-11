@@ -6,6 +6,8 @@ import '../providers/products_provider.dart';
 class EditProductsScreen extends StatefulWidget {
   static const routeName = '/edit-products';
 
+  const EditProductsScreen({super.key});
+
   @override
   State<EditProductsScreen> createState() => _EditProductScreenState();
 }
@@ -13,7 +15,7 @@ class EditProductsScreen extends StatefulWidget {
 class _EditProductScreenState extends State<EditProductsScreen> {
   final _priceFocus = FocusNode();
   final _descriptionfocus = FocusNode();
-  var _imageUrlController = TextEditingController();
+  final _imageUrlController = TextEditingController();
   final _form = GlobalKey<FormState>();
   var _existingValue = Item(
     id: null,
@@ -70,8 +72,8 @@ class _EditProductScreenState extends State<EditProductsScreen> {
             context: context,
             builder: (ctx) {
               return AlertDialog(
-                title: Text('An error occured'),
-                content: Text('Something went wrong'),
+                title: const Text('An error occured'),
+                content: const Text('Something went wrong'),
                 actions: [
                   TextButton(
                     onPressed: () {
@@ -127,24 +129,24 @@ class _EditProductScreenState extends State<EditProductsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Products'),
+        title: const Text('Edit Products'),
         actions: [
           TextButton(
               onPressed: () {
                 _saveform();
               },
-              child: Text('Save'))
+              child: const Text('Save'))
         ],
       ),
       body: isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Form(
                 key: _form,
                 child: ListView(children: [
                   TextFormField(
-                    decoration: InputDecoration(hintText: 'Title'),
+                    decoration: const InputDecoration(hintText: 'Title'),
                     initialValue: _initValues['title'],
                     textInputAction: TextInputAction.next,
                     onFieldSubmitted: (_) {
@@ -169,7 +171,7 @@ class _EditProductScreenState extends State<EditProductsScreen> {
                     },
                   ),
                   TextFormField(
-                    decoration: InputDecoration(hintText: 'Price'),
+                    decoration: const InputDecoration(hintText: 'Price'),
                     initialValue: _initValues['price'],
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.number,
@@ -192,17 +194,17 @@ class _EditProductScreenState extends State<EditProductsScreen> {
                       if (value!.isEmpty) {
                         return 'Please enter a price';
                       }
-                      if (double.tryParse(value as String) == null) {
+                      if (double.tryParse(value) == null) {
                         return 'Please enter a valid price';
                       }
-                      if (double.parse(value as String) <= 0) {
+                      if (double.parse(value) <= 0) {
                         return 'Please enter a valid price';
                       }
                       return null;
                     },
                   ),
                   TextFormField(
-                    decoration: InputDecoration(hintText: 'Description'),
+                    decoration: const InputDecoration(hintText: 'Description'),
                     initialValue: _initValues['description'],
                     // textInputAction: TextInputAction.next,
                     maxLines: 3,
@@ -235,12 +237,12 @@ class _EditProductScreenState extends State<EditProductsScreen> {
                       Container(
                         width: 100,
                         height: 100,
-                        margin: EdgeInsets.only(top: 8, right: 8),
+                        margin: const EdgeInsets.only(top: 8, right: 8),
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.grey),
                         ),
                         child: _imageUrlController.text.isEmpty
-                            ? Text(
+                            ? const Text(
                                 'Enter Url',
                                 textAlign: TextAlign.center,
                               )
@@ -253,7 +255,7 @@ class _EditProductScreenState extends State<EditProductsScreen> {
                       ),
                       Expanded(
                         child: TextFormField(
-                          decoration: InputDecoration(hintText: 'Image URL'),
+                          decoration: const InputDecoration(hintText: 'Image URL'),
                           // initialValue: _initValues['imageUrl'],
                           keyboardType: TextInputType.url,
                           textInputAction: TextInputAction.done,

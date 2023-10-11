@@ -24,6 +24,27 @@ class Item with ChangeNotifier {
     required this.quantity,
     this.isFavourite=false,
   });
+
+  Future<void> toggleFavouriteStatus(String token, String userId) async {
+    final oldStatus = isFavourite;
+    isFavourite = !isFavourite;
+    notifyListeners();
+    final url = Uri.parse(
+        'https://flutter-shop-app-51776-default-rtdb.firebaseio.com/favourites/$userId/$id.json?auth=$token');
+    try {
+      final response = await http.patch(url,
+          body: json.encode({
+            'isFavourite': isFavourite,
+          }));
+      if (response.statusCode >= 400) {
+        isFavourite = oldStatus;
+        notifyListeners();
+      }
+    } catch (error) {
+      isFavourite = oldStatus;
+      notifyListeners();
+    }
+  }
 }
 
 class Products with ChangeNotifier {
@@ -105,19 +126,19 @@ class Products with ChangeNotifier {
   }
 
   List<Item> get items {
-    return [..._items];
+    return [..._items];//spread operator
   }
 
   Item findById(String id) {
     return _items.firstWhere((element) => element.id == id);
   }
 
-  bool isFavourite(String id) {
-    final Item item = _items.firstWhere((element) => element.id == id);
-    if (item.isFavourite) return true;
+  // bool isFavourite(String id) {
+  //   final Item item = _items.firstWhere((element) => element.id == id);
+  //   if (item.isFavourite) return true;
 
-    return false;
-  }
+  //   return false;
+  // }
 
   Future<void> fetchAndSetProduct([bool filterByUser = false]) async {
     final String filterString =
@@ -125,13 +146,18 @@ class Products with ChangeNotifier {
 
     final url = Uri.parse(
         'https://flutter-shop-app-51776-default-rtdb.firebaseio.com/products.json?auth=$authToken&$filterString');
+    final url2 = Uri.parse('https://flutter-shop-app-51776-default-rtdb.firebaseio.com/favourites/$userId.json');
     try {
       final response = await http.get(url);
+      final res2= await http.get(url2);
+      final favdata= json.decode(res2.body);
+      print(favdata);
       final extractedData = json.decode(response.body);
       final List<Item> loadedProducts = [];
       // print(json.decode(response.body));
 
       extractedData.forEach((prodId, prodData) {
+        print(favdata[prodId]);
         loadedProducts.add(
           Item(
             id: prodId,
@@ -140,6 +166,8 @@ class Products with ChangeNotifier {
             description: prodData['description'],
             imageUrl: prodData['imageUrl'],
             quantity: prodData['quantity'],
+            isFavourite: favdata[prodId]==null?false:true,
+
           ),
         );
       });
@@ -230,7 +258,7 @@ class Products with ChangeNotifier {
   //   }
   // }
 
-  void favouriteToggle(String id){
+  Future<void> favouriteToggle(String id) async{
     Item item= _items.firstWhere((element) => element.id==id);
     print(item.isFavourite);
     bool oldStatus=item.isFavourite;
@@ -238,6 +266,12 @@ class Products with ChangeNotifier {
     notifyListeners();
     print(item.isFavourite);
 
+    final url = Uri.parse(
+        'https://flutter-shop-app-51776-default-rtdb.firebaseio.com/favourites/$userId/$id.json');
+    final response = await http.patch(url,
+        body: json.encode({
+          'isFavourite':!oldStatus,          
+        }));
   }
 
   Future<void> deleteProduct(String id) async {
